@@ -40,10 +40,11 @@ import {StatusMenuItem} from './statusMenuItem.js';
 
 const Indicator = GObject.registerClass(
 class Indicator extends PanelMenu.Button {
-    _init(settings) {
+    _init(settings, extension) {
         super._init(0.0, _('Chess.com Notifier'));
 
         this._settings = settings;
+        this._extension = extension;
         this._session = new Soup.Session();
         this._lastData = null;
 
@@ -92,8 +93,7 @@ class Indicator extends PanelMenu.Button {
 
         const settingsItem = new PopupMenu.PopupMenuItem(_('Settings'));
         settingsItem.connect('activate', () => {
-            const extension = Extension.lookupByURL(import.meta.url);
-            extension.openPreferences();
+            this._extension.openPreferences();
         });
         this.menu.addMenuItem(settingsItem);
     }
@@ -176,6 +176,7 @@ class Indicator extends PanelMenu.Button {
     }
 
     destroy() {
+        this._session.abort();
         this._removeTimer();
         if (this._settingsChangedId) {
             this._settings.disconnect(this._settingsChangedId);
@@ -188,7 +189,7 @@ class Indicator extends PanelMenu.Button {
 export default class ChesscomNotifierExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
-        this._indicator = new Indicator(this._settings);
+        this._indicator = new Indicator(this._settings, this);
         Main.panel.addToStatusArea(this.uuid, this._indicator);
     }
 
