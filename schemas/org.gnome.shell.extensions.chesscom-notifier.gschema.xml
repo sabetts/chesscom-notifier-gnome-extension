@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.chesscom-notifier"
+          path="/org/gnome/shell/extensions/chesscom-notifier/">
+    <key name="username" type="s">
+      <default>""</default>
+      <summary>Chess.com username</summary>
+      <description>The chess.com username to check for notifications.</description>
+    </key>
+    <key name="polling-interval" type="i">
+      <default>300</default>
+      <summary>Polling interval in seconds</summary>
+      <description>How often to check for notifications, in seconds.</description>
+      <range min="10" max="3600"/>
+    </key>
+    <key name="show-games" type="b">
+      <default>true</default>
+      <summary>Highlight if its your move</summary>
+      <description>Whether games to move count affects the icon highlight.</description>
+    </key>
+    <key name="show-messages" type="b">
+      <default>true</default>
+      <summary>Highlight if you have messages</summary>
+      <description>Whether new messages count affects the icon highlight.</description>
+    </key>
+    <key name="show-friend-requests" type="b">
+      <default>true</default>
+      <summary>Highlight for friend requests</summary>
+      <description>Whether friend requests count affects the icon highlight.</description>
+    </key>
+    <key name="show-challenges" type="b">
+      <default>true</default>
+      <summary>Highlight for challenges</summary>
+      <description>Whether pending challenges count affects the icon highlight.</description>
+    </key>
+  </schema>
+</schemalist>

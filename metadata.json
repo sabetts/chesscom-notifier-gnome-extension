@@ -1,0 +1,9 @@
+{
+  "name": "chesscom-notifier",
+  "description": "Check chess.com for daily game moves and unread messages.",
+  "uuid": "chesscom-notifier@sabetts",
+  "shell-version": [
+    "50"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.chesscom-notifier"
+}
