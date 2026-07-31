@@ -5,5 +5,6 @@
   "shell-version": [
     "50"
   ],
+  "url": "https://github.com/sabetts/chesscom-notifier-gnome-extension",
   "settings-schema": "org.gnome.shell.extensions.chesscom-notifier"
 }
