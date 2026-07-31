@@ -34,7 +34,6 @@ import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Ex
 export default class ChesscomNotifierPrefs extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         const settings = this.getSettings();
-        settings.delay();
 
         const page = new Adw.PreferencesPage({
             title: _('General'),
@@ -94,9 +93,5 @@ export default class ChesscomNotifierPrefs extends ExtensionPreferences {
 
         page.add(fieldsGroup);
         window.add(page);
-
-        window.connect('close-request', () => {
-            settings.apply();
-        });
     }
 }

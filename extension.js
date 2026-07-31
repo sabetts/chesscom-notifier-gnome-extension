@@ -47,6 +47,7 @@ class Indicator extends PanelMenu.Button {
         this._extension = extension;
         this._session = new Soup.Session();
         this._lastData = null;
+        this._debounceId = null;
 
         this._label = new St.Label({
             text: '♞',
@@ -71,7 +72,7 @@ class Indicator extends PanelMenu.Button {
         this._startTimer();
 
         this._settingsChangedId = this._settings.connect('changed', () => {
-            this._startTimer();
+            this._scheduleCheck();
         });
 
         const item = new PopupMenu.PopupMenuItem(_('Check Now'));
@@ -117,6 +118,22 @@ class Indicator extends PanelMenu.Button {
             GLib.Source.remove(this._timeoutId);
             this._timeoutId = null;
         }
+    }
+
+    _removeDebounceTimer() {
+        if (this._debounceId) {
+            GLib.source_remove(this._debounceId);
+            this._debounceId = null;
+        }
+    }
+
+    _scheduleCheck() {
+        this._removeDebounceTimer();
+        this._debounceId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
+            this._debounceId = null;
+            this._startTimer();
+            return GLib.SOURCE_REMOVE;
+        });
     }
 
     _check() {
@@ -177,6 +194,7 @@ class Indicator extends PanelMenu.Button {
 
     destroy() {
         this._session.abort();
+        this._removeDebounceTimer();
         this._removeTimer();
         if (this._settingsChangedId) {
             this._settings.disconnect(this._settingsChangedId);

@@ -1,6 +1,6 @@
 {
   "name": "chesscom-notifier",
-  "description": "Check chess.com for daily game moves and unread messages.",
+  "description": "Check chess.com for daily game moves and unread messages.\n\nThis extension is not affiliated, funded, or in any way associated with chess.com.",
   "uuid": "chesscom-notifier@sabetts",
   "shell-version": [
     "50"
